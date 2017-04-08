@@ -1,0 +1,35 @@
+.kgr_medals_stand th,
+.kgr_medals_stand td {
+	border: none;
+}
+
+.kgr_medals_post_html {
+	display: none;
+}
+
+.kgr_medals_post_medals {
+	white-space: nowrap;
+}
+
+.kgr_medals_post_medal {
+	font-weight: normal;
+	text-decoration: none;
+}
+
+[data-kgr_medals_color="golden"] {
+	color: Gold;
+}
+
+[data-kgr_medals_color="silver"] {
+	color: Silver;
+}
+
+[data-kgr_medals_color="bronze"] {
+	color: Tan;
+}
+
+.kgr_medals_post_medal_active {
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
