@@ -2,8 +2,9 @@
 
 /*
  * Plugin Name: KGR Medals
+ * Plugin URI: https://github.com/constracti/wp-medals
  * Author: constracti
- * Version: 0.1
+ * Version: 0.2
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -11,7 +12,10 @@
 if ( !defined( 'ABSPATH' ) )
 	exit;
 
-require_once( plugin_dir_path( __FILE__ ) . 'settings.php' );
+define( 'KGR_MEDALS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'KGR_MEDALS_URL', plugin_dir_url( __FILE__ ) );
+
+require_once( KGR_MEDALS_DIR . 'settings.php' );
 
 $kgr_medals = [
 	'golden',
