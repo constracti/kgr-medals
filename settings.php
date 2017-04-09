@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) )
 	exit;
 
 add_filter( 'plugin_action_links_kgr-medals/kgr-medals.php', function( array $links ): array {
-	$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=kgr-medals' ), 'Settings' );
+	$links[] = sprintf( '<a href="%s">%s</a>', menu_page_url( 'kgr-medals', FALSE ), 'Settings' );
 	return $links;
 } );
 
@@ -21,8 +21,7 @@ add_action( 'admin_init', function() {
 		for ( $i = 0; $i < $n; $i++ ) {
 			$campaign = [
 				'term' => intval( $input['term'][ $i ] ),
-				'start' => strval( $input['start'][ $i ] ),
-				'stop' => strval( $input['stop'][ $i ] ),
+				'open' => $input['open'][ $i ] === 'on',
 			];
 			$campaigns[] = $campaign;
 		}
@@ -54,7 +53,6 @@ function kgr_medals_settings_page() {
 function kgr_medals_settings_main_page() {
 	$campaigns = get_option( 'kgr-medals', [] );
 	echo sprintf( '<h1>%s</h1>', 'KGR Medals' ) . "\n";
-	echo '<p><i>under development!</i></p>' . "\n"; # TODO delete
 	echo '<form method="post" action="options.php" class="kgr-medals-control-container">' . "\n";
 	settings_fields( 'kgr-medals' );
 	do_settings_sections( 'kgr-medals' );
@@ -62,8 +60,7 @@ function kgr_medals_settings_main_page() {
 	echo '<thead>' . "\n";
 	echo '<tr>' . "\n";
 	echo sprintf( '<th>%s</td>', 'term' ) . "\n";
-	echo sprintf( '<th>%s</td>', 'start' ) . "\n";
-	echo sprintf( '<th>%s</td>', 'stop' ) . "\n";
+	echo sprintf( '<th>%s</td>', 'open' ) . "\n";
 	echo sprintf( '<th>%s</td>', 'action' ) . "\n";
 	echo '</tr>' . "\n";
 	echo '</thead>' . "\n";
@@ -89,8 +86,7 @@ function kgr_medals_settings_main_page_tr( $campaign = NULL ) {
 	if ( is_null( $campaign ) )
 		$campaign = [
 			'term' => 0,
-			'start' => NULL,
-			'stop' => NULL,
+			'open' => FALSE,
 		];
 	echo '<tr class="kgr-medals-control-item">' . "\n";
 	// term
@@ -116,17 +112,12 @@ function kgr_medals_settings_main_page_tr( $campaign = NULL ) {
 		echo '</select>' . "\n";
 	}
 	echo '</td>' . "\n";
-	// start
-	$key = 'start';
+	// open
+	$key = 'open';
 	$value = $campaign[ $key ];
 	echo '<td>' . "\n";
-	echo sprintf( '<input type="date" name="%s[%s][]" value="%s" autocomplete="off" />', $name, $key, $value ?? '' ) . "\n";
-	echo '</td>' . "\n";
-	// stop
-	$key = 'stop';
-	$value = $campaign[ $key ];
-	echo '<td>' . "\n";
-	echo sprintf( '<input type="date" name="%s[%s][]" value="%s" autocomplete="off" />', $name, $key, $value ?? '' ) . "\n";
+	echo sprintf( '<input type="hidden" name="%s[%s][]" />', $name, $key ) . "\n";
+	echo sprintf( '<input type="checkbox" class="kgr-medals-settings-campaign-open-checkbox"%s />', checked( $value, TRUE, FALSE ) ) . "\n";
 	echo '</td>' . "\n";
 	echo '<td>' . "\n";
 	echo sprintf( '<button type="button" class="button kgr-medals-control-delete">%s</button>', 'delete' ) . "\n";
@@ -168,12 +159,10 @@ function kgr_medals_settings_term_page() {
 	echo '</h2>' . "\n";
 	echo '<table class="form-table">' . "\n";
 	echo '<tbody>' . "\n";
-	foreach ( ['start', 'stop'] as $key ) {
-		echo '<tr>' . "\n";
-		echo sprintf( '<th scope="row">%s</th>', $key ) . "\n";
-		echo sprintf( '<td>%s</td>', $campaign[ $key ] ) . "\n";
-		echo '</tr>' . "\n";
-	}
+	echo '<tr>' . "\n";
+	echo sprintf( '<th scope="row">%s</th>', 'open' ) . "\n";
+	echo sprintf( '<td>%s</td>', $campaign['open'] ? 'on' : 'off' ) . "\n";
+	echo '</tr>' . "\n";
 	echo '<tr>' . "\n";
 	echo sprintf( '<th scope="row">%s</th>', 'users' ) . "\n";
 	echo sprintf( '<td>%d</td>', count( $users ) ) . "\n";
@@ -241,5 +230,8 @@ function kgr_medals_settings_term_page() {
 add_action( 'admin_enqueue_scripts', function( string $hook ) {
 	if ( $hook !== 'settings_page_kgr-medals' )
 		return;
+	if ( array_key_exists( 'term', $_GET ) )
+		return;
 	wp_enqueue_script( 'kgr-medals-control', KGR_MEDALS_URL . 'control.js', ['jquery'] );
+	wp_enqueue_script( 'kgr-medals-settings', KGR_MEDALS_URL . 'settings.js', ['jquery'] );
 } );

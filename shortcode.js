@@ -2,7 +2,7 @@ jQuery( function() {
 
 var busy = false;
 
-jQuery( '.kgr_medals_clear' ).click( function() {
+jQuery( 'a.kgr_medals_clear' ).click( function() {
 	if ( busy )
 		return false;
 	busy = true;
@@ -17,7 +17,7 @@ jQuery( '.kgr_medals_clear' ).click( function() {
 	return false;
 } );
 
-jQuery( '.kgr_medals_post_medal' ).click( function() {
+jQuery( 'a.kgr_medals_post_medal' ).click( function() {
 	if ( busy )
 		return false;
 	busy = true;
