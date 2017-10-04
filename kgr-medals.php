@@ -4,7 +4,7 @@
  * Plugin Name: KGR Medals
  * Plugin URI: https://github.com/constracti/wp-medals
  * Author: constracti
- * Version: 1.0
+ * Version: 1.1
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -135,7 +135,7 @@ add_shortcode( 'kgr-medals', function( $atts ) {
 			}
 			$html .= '</p>' . "\n";
 		}
-		$html .= $post->post_content;
+		$html .= apply_filters( 'the_content', $post->post_content );
 		$html .= '</div>' . "\n";
 	}
 	return $html;
