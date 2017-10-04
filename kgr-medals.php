@@ -4,7 +4,7 @@
  * Plugin Name: KGR Medals
  * Plugin URI: https://github.com/constracti/wp-medals
  * Author: constracti
- * Version: 1.1
+ * Version: 1.1.1
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -142,8 +142,8 @@ add_shortcode( 'kgr-medals', function( $atts ) {
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_style( 'kgr-medals-shortcode', plugins_url( 'shortcode.css', __FILE__ ) );
-	wp_enqueue_script( 'kgr-medals-shortcode', plugins_url( 'shortcode.js', __FILE__ ), ['jquery'] );
+	wp_enqueue_style( 'kgr-medals-shortcode', plugins_url( 'shortcode.css', __FILE__ ), [], NULL );
+	wp_enqueue_script( 'kgr-medals-shortcode', plugins_url( 'shortcode.js', __FILE__ ), ['jquery'], NULL );
 } );
 
 add_action( 'wp_ajax_kgr_medals_clear', function() {
