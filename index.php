@@ -2,11 +2,12 @@
 
 /*
  * Plugin Name: KGR Medals
- * Plugin URI: https://github.com/constracti/wp-medals
+ * Plugin URI: https://github.com/constracti/kgr-medals
  * Author: constracti
+ * Author URI: https://github.com/constracti
  * Version: 1.1.2
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( !defined( 'ABSPATH' ) )

@@ -3,7 +3,7 @@
 if ( !defined( 'ABSPATH' ) )
 	exit;
 
-add_filter( 'plugin_action_links_kgr-medals/kgr-medals.php', function( array $links ): array {
+add_filter( 'plugin_action_links_kgr-medals/index.php', function( array $links ): array {
 	$links[] = sprintf( '<a href="%s">%s</a>', menu_page_url( 'kgr-medals', FALSE ), 'Settings' );
 	return $links;
 } );
