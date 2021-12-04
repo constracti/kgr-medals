@@ -4,7 +4,7 @@
  * Plugin Name: KGR Medals
  * Plugin URI: https://github.com/constracti/wp-medals
  * Author: constracti
- * Version: 1.1.1
+ * Version: 1.1.2
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -42,7 +42,7 @@ function kgr_medals_clear_nonce( int $user_id, int $term_id ): string {
 }
 
 function kgr_medals_vote_nonce( int $user_id, int $term_id, string $medal, int $post_id ): string {
-	return sprintf( 'kgr_medals_vote-u%d-t%d-%s-%p', $user_id, $term_id, $medal, $post_id );
+	return sprintf( 'kgr_medals_vote-u%d-t%d-%s-%d', $user_id, $term_id, $medal, $post_id );
 }
 
 function kgr_medals_get_campaign( int $term_id ) {
